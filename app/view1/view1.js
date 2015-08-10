@@ -10,29 +10,40 @@ angular.module('network.networkCtrl', ['ngRoute','ngVis'])
 }])
 
 .controller('networkCtrl', ['$scope',function($scope) {
-    var dataGroups = new vis.DataSet();
-    dataGroups.add({});
-    var dataNodes = new vis.DataSet();
-    dataNodes.add([
-        {id: 1, label: '1'},
-        {id: 2, label: '2'},
-        {id: 3, label: '3'},
-        {id: 4, label: '4'},
-        {id: 5, label: '5'}
-      ]);
-    var dataEdges = new vis.DataSet();
-    dataEdges.add([
-        {from: 1, to: 3},
-        {from: 3, to: 3},
-        {from: 1, to: 2},
-        {from: 2, to: 4},
-        {from: 2, to: 5}
-    ]);
+    function generateNodes(size){
+        var generated = [];
+        for(var i = 0; i< size ;i++){
+            generated.push({id:i,label:i});
+        }
+        return generated;
+    }
 
-    $scope.graphOptions = {
+    function generateConnections(dataPoints,maxConnections){
+        var generated = [];
+        for(var i = 0; i < dataPoints.length; i++){
+            var connections = Math.floor( Math.random() * maxConnections);
+            for(var j = 0; j < connections; j++){
+                generated.push({
+                    from : Math.floor( Math.random() * dataPoints.length),
+                    to : Math.floor( Math.random() * dataPoints.length)
+                });
+            }
+        }
+        console.log(generated);
+        return generated;
+    }
+
+    var nodes = generateNodes(6);
+    var connections = generateConnections(nodes,3);
+    var dataNodes = new vis.DataSet();
+    dataNodes.add(nodes);
+    var dataEdges = new vis.DataSet();
+    dataEdges.add(connections);
+
+    $scope.networkOptions = {
         physics: {enabled: true}
     };
-    $scope.graphData = {
+    $scope.generatedData = {
       nodes: dataNodes,
       edges: dataEdges
     };
