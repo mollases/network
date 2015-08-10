@@ -29,7 +29,6 @@ angular.module('network.networkCtrl', ['ngRoute','ngVis'])
                 });
             }
         }
-        console.log(generated);
         return generated;
     }
 
