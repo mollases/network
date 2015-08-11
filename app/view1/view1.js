@@ -68,7 +68,6 @@ angular.module('network.networkCtrl', ['ngRoute', 'ngVis'])
 
             while (!stack.isEmpty()) {
                 var node = stack.pop();
-                nodeList.push(node);
                 if(!contains(nodeList,node)){
                     nodeList.push(node);
                 }
