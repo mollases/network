@@ -10,14 +10,14 @@
     };
 
     Stack.prototype.pop = function(){
-        return this.arr.splice(this.arr.length - 1,1);
+        return this.arr.splice(this.arr.length - 1,1)[0];
     };
 
     Stack.prototype.size = function(){
         return this.arr.length;
     };
 
-    Stack.prototype.isEmplty = function(){
+    Stack.prototype.isEmpty = function(){
         return this.arr.length === 0;
     };
 
