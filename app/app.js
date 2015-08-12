@@ -3,8 +3,9 @@
 // Declare app level module which depends on views, and components
 angular.module('network', [
   'ngRoute',
+  'network.NetworkGeneratorSvs',
   'network.networkCtrl',
-  'network.view2',
+  'network.largestSumCtrl',
   'network.version'
 ]).
 config(['$routeProvider', function($routeProvider) {

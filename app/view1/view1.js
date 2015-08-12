@@ -11,37 +11,18 @@ angular.module('network.networkCtrl', ['ngRoute', 'ngVis'])
     }
 ])
 
-.controller('networkCtrl', ['$scope',
-    function($scope) {
-        function generateNodes(size) {
-            var generated = [];
-            for (var i = 0; i < size; i++) {
-                generated.push({
-                    id: i,
-                    label: i
-                });
+.controller('networkCtrl', ['$scope','NetworkGeneratorSvs',
+    function($scope,NetworkGeneratorSvs) {
+        var opts = {
+            nodeLabeler : function(i){
+                return String.fromCharCode(65 + i);
             }
-            return generated;
-        }
+        };
+        var network = NetworkGeneratorSvs.generateNetwork(opts);
 
-        function generateConnections(dataPoints, maxConnections) {
-            var generated = [];
-            for (var i = 0; i < dataPoints.length; i++) {
-                var connections = Math.floor(Math.random() * maxConnections);
-                for (var j = 0; j < connections; j++) {
-                    generated.push({
-                        from: Math.floor(Math.random() * dataPoints.length),
-                        to: Math.floor(Math.random() * dataPoints.length)
-                    });
-                }
-            }
-            return generated;
-        }
-
-        var nodes = generateNodes(6);
-        var connections = generateConnections(nodes, 3);
-
-        function discoverNetwork(nodes, connections) {
+        function discoverNetwork(network) {
+            var nodes = network.nodes;
+            var connections = network.edges;
             function fetchEdges(edges, search) {
                 var conns = [];
                 for (var i = 0; i < edges.length; i++) {
@@ -91,24 +72,16 @@ angular.module('network.networkCtrl', ['ngRoute', 'ngVis'])
             };
         }
 
-
-
         $scope.networkOptions = {
             physics: {
                 enabled: true
-            }
-        };
-        $scope.generatedData = {
-            nodes: nodes,
-            edges: connections
+            },
+            height: '300px',
+            width:'600px'
         };
 
-
-        $scope.graphOptions = {
-            physics: {
-                enabled: true
-            }
-        };
-        $scope.graphData = discoverNetwork(nodes, connections);
+        $scope.generatedData = network;
+        $scope.graphData = discoverNetwork(network);
+        $scope.networkDescription = "bfs discovered";
     }
 ]);

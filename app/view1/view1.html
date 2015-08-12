@@ -2,6 +2,7 @@
 <vis-network data="generatedData" options="networkOptions" events="generatedEvents"/>
 </div>
 <div>
-<p>This is the bfs discovered network:</p>
-<vis-network data="graphData" options="graphOptions" events="graphEvents"/>
+<p>This is the {{networkDescription}} network:</p>
+<vis-network data="graphData" options="networkOptions" events="graphEvents"/>
+<div ng-repeat="message in messages">{{message}}</div>
 </div>
