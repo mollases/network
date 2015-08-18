@@ -4,6 +4,7 @@
 angular.module('network', [
   'ngRoute',
   'network.NetworkGeneratorSvs',
+  'network.HelperService',
   'network.networkCtrl',
   'network.largestSumCtrl',
   'network.version'

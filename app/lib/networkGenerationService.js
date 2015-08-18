@@ -1,55 +1,70 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('network.NetworkGeneratorSvs',[]).
-service('NetworkGeneratorSvs', function(){
+angular.module('network.NetworkGeneratorSvs', []).
+service('NetworkGeneratorSvs', function() {
 
-        function generateNodes(size,labelFn) {
-            labelFn = labelFn || function(i){return i;};
-            var generated = [];
-            for (var i = 0; i < size; i++) {
-                generated.push({
-                    id: i,
-                    label: labelFn(i)
-                });
-            }
-            return generated;
+    function generateNodes(size, labelFn) {
+        labelFn = labelFn || function(i) {
+            return i;
+        };
+        var generated = [];
+        for (var i = 0; i < size; i++) {
+            generated.push({
+                id: i,
+                label: labelFn(i)
+            });
         }
+        return generated;
+    }
 
-        function generateConnections(opts) {
-            var generated = [];
-            for (var i = 0; i < opts.nodes; i++) {
-                var connections = Math.floor(Math.random() * (opts.maxConnections - 1)) + 1;
-                for (var j = 0; j < connections; j++) {
-                    var edge = {
-                        from :i,
-                        to :Math.floor(Math.random() * opts.nodes)
-                    };
+    function generateConnections(opts) {
+        var generated = [];
+        for (var i = 0; i < opts.nodes; i++) {
+            var connections = Math.floor(Math.random() * (opts.maxConnections - 1)) + 1;
+            for (var j = 0; j < connections; j++) {
+                var edge = {
+                    from: i,
+                    to: Math.floor(Math.random() * opts.nodes)
+                };
 
-                    if(opts.continuous){
-                        do {
+                if (opts.continuous) {
+                    do {
                         edge.to = Math.floor(Math.random() * opts.nodes);
-                        } while (edge.to === edge.from);
-                    }
-                    generated.push(edge);
+                    } while (edge.to === edge.from);
                 }
+                generated.push(edge);
             }
-            return generated;
         }
+        return generated;
+    }
 
-    this.generateNetwork = function(opts){
+    this.generateNetwork = function(opts) {
         opts = opts || {};
         var options = {
-            nodes : opts.nodes || 10,
-            nodeLabeler : opts.nodeLabeler || function(i){return i;},
-            maxConnections : opts.maxConnections || 3,
-            cyclical : opts.cyclical || false,
-            continuous : opts.continuous || true
+            nodes: opts.nodes || 10,
+            nodeLabeler: opts.nodeLabeler || function(i) {
+                return i;
+            },
+            maxConnections: opts.maxConnections || 3,
+            cyclical: opts.cyclical || false,
+            continuous: opts.continuous || true
         };
 
         return {
-            nodes : generateNodes(options.nodes,options.nodeLabeler),
-            edges : generateConnections(options)
+            nodes: generateNodes(options.nodes, options.nodeLabeler),
+            edges: generateConnections(options)
         };
     };
+
+    this.fetchEdges = function(edges, search) {
+        var conns = [];
+        for (var i = 0; i < edges.length; i++) {
+            if (edges[i].from === search || edges[i].to === search) {
+                conns.push(edges[i]);
+            }
+        }
+        return conns;
+    };
+
 });
