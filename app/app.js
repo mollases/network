@@ -7,7 +7,8 @@ angular.module('network', [
   'network.HelperService',
   'network.networkCtrl',
   'network.largestSumCtrl',
-  'network.version'
+  'network.bucketSortCtrl',
+  'network.version',
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/bfs-discovery'});

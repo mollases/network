@@ -1,0 +1,14 @@
+<h3>challenge: {{challenge}}</h3>
+<div>
+    <input type="number" ng-model="size"  placeholder="size">
+    <input type="number" ng-model="maxHeight" placeholder="max height">
+    <button ng-click="refreshData()">refresh</button>
+</div>
+<div><p>This is the generated bar graph:</p>
+<vis-graph2d data="generated" options="options"></vis-graph2d>
+</div>
+<div>
+<p>This task took {{operations}} operation(s)</p>
+<vis-graph2d data="determined" options="options"></vis-graph2d>
+<div ng-repeat="message in messages">{{message}}</div>
+</div>
