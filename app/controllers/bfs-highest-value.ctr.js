@@ -4,8 +4,8 @@ angular.module('network.largestSumCtrl', ['ngRoute', 'ngVis'])
 
 .config(['$routeProvider',
     function($routeProvider) {
-        $routeProvider.when('/view2', {
-            templateUrl: 'view1/view1.html',
+        $routeProvider.when('/bfs-highest-value', {
+            templateUrl: 'views/network.tpl.html',
             controller: 'largestSumCtrl'
         });
     }
@@ -13,12 +13,13 @@ angular.module('network.largestSumCtrl', ['ngRoute', 'ngVis'])
 
 .controller('largestSumCtrl', ['$scope', 'NetworkGeneratorSvs', 'HelperService',
     function($scope, NetworkGeneratorSvs, HelperService) {
+        $scope.challenge = 'Every node has a value associated with it, given an entrance point, find the best path through the network such that the sum of all of the nodes is the highest';
         $scope.messages = [];
         var opts = {
             nodeLabeler: function(i) {
                 return String.fromCharCode(65 + i);
             },
-            nodes: 10
+            nodes: 20
         };
         var network = NetworkGeneratorSvs.generateNetwork(opts);
 

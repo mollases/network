@@ -4,8 +4,8 @@ angular.module('network.networkCtrl', ['ngRoute', 'ngVis'])
 
 .config(['$routeProvider',
     function($routeProvider) {
-        $routeProvider.when('/view1', {
-            templateUrl: 'view1/view1.html',
+        $routeProvider.when('/bfs-discovery', {
+            templateUrl: 'views/network.tpl.html',
             controller: 'networkCtrl'
         });
     }
@@ -13,10 +13,12 @@ angular.module('network.networkCtrl', ['ngRoute', 'ngVis'])
 
 .controller('networkCtrl', ['$scope','NetworkGeneratorSvs','HelperService',
     function($scope,NetworkGeneratorSvs,HelperService) {
+        $scope.challenge = 'discover the entire network';
         var opts = {
             nodeLabeler : function(i){
                 return String.fromCharCode(65 + i);
-            }
+            },
+            nodes: 35
         };
         var network = NetworkGeneratorSvs.generateNetwork(opts);
 
