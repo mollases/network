@@ -59,6 +59,6 @@ angular.module('network.networkCtrl', ['ngRoute', 'ngVis'])
 
         $scope.generatedData = network;
         $scope.graphData = discoverNetwork(network);
-        $scope.networkDescription = "bfs discovered";
+        $scope.description = "bfs discovered network";
     }
 ]);

@@ -12,7 +12,8 @@
     "angular-mocks": "~1.4.0",
     "html5-boilerplate": "~5.2.0",
     "vis": "~4.7.0",
-    "angular-visjs": "~4.0.2"
+    "angular-visjs": "~4.0.2",
+    "angular-bootstrap": "~0.13.3"
   },
   "resolutions": {
     "angular": "1.4.3",

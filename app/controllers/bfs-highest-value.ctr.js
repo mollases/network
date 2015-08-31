@@ -91,7 +91,7 @@ angular.module('network.largestSumCtrl', ['ngRoute', 'ngVis'])
 
         $scope.generatedData = network;
         $scope.graphData = discoverNetwork(network);
-        $scope.networkDescription = "bfs discovered";
+        $scope.description = "bfs discovered network";
         $scope.messages.push("discover finished");
     }
 ]);
