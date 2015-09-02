@@ -10,5 +10,5 @@
 <div>
 <p>This task took {{operations}} operation(s)</p>
 <vis-graph2d data="determined" options="options"></vis-graph2d>
-<div ng-repeat="message in messages">{{message}}</div>
+<div ng-repeat="message in messages track by $index">{{message}}</div>
 </div>

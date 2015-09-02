@@ -22,10 +22,11 @@ angular.module('network.treeCtrl', ['ngRoute', 'ngVis'])
             var maxHeight = $scope.maxHeight;
             var items = [];
             for(var i = 0; i < elements; i++){
+                var val = Math.floor(Math.random() * maxHeight);
             items.push({
                 id: i,
-                label: i + ', ' + Math.floor(Math.random() * maxHeight),
-                value: Math.floor(Math.random() * maxHeight)
+                label: i + ', ' + val,
+                value: val
             });
             }
             return items;
@@ -48,8 +49,35 @@ angular.module('network.treeCtrl', ['ngRoute', 'ngVis'])
             return {nodes: values, edges : generateConnections()};
         }
 
-        function generateBalancedTree(values){
 
+        function binaryHeap(items){
+            var heap = [];
+            function swap(array, index1,index2){
+                var temp = array[index1];
+                array[index1] = array[index2];
+                array[index2] = temp;
+            }
+
+            function heapify(arr){
+                var index = arr.length - 1;
+                var cont = true;
+                while(cont){
+                    var parent = Math.floor(index / 2);
+                    if(index !== parent && arr[index].value < arr[parent].value){
+                        swap(arr,index,parent);
+                        index = parent;
+                    } else {
+                        cont = false;
+                    }
+                }
+            }
+
+            for(var i = 0; i < items.length; i++){
+                heap.push(items[i]);
+                heapify(heap);
+            }
+
+            return heap;
         }
 
         $scope.networkOptions = {
@@ -63,7 +91,7 @@ angular.module('network.treeCtrl', ['ngRoute', 'ngVis'])
         var values = generateBarChart();
 
         $scope.generatedData = {nodes :  values};
-        $scope.graphData = generateGenericTree(values);
+        $scope.graphData = binaryHeap(values);
         $scope.description = "binary tree";
     }
 ]);

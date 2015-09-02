@@ -28,6 +28,38 @@ angular.module('network.sortingCtrl', ['ngRoute', 'ngVis'])
             return items;
         }
 
+        function quicksort2(items){
+            var lessThanPivot = [], equalToPivot = [], greaterThanPivot = [];
+            var lengthOfItems = items.length;
+            var halfLength = Math.floor(lengthOfItems / 2);
+            var sortedList = [];
+
+            var pivot  = items[halfLength];
+
+            items.forEach(function(obj,index,arr){
+                if (obj.y < pivot.y){
+                    lessThanPivot.push(obj);
+                } else if (obj.y === pivot.y) {
+                    equalToPivot.push(obj);
+                } else if (obj.y > pivot.y) {
+                    greaterThanPivot.push(obj);
+                }
+            });
+
+            if(lessThanPivot.length !== 0){
+                sortedList = sortedList.concat(quicksort2(lessThanPivot));
+            }
+
+            sortedList = sortedList.concat(equalToPivot);
+
+            if(greaterThanPivot.length !== 0){
+                sortedList = sortedList.concat(quicksort2(greaterThanPivot));
+            }
+
+            return sortedList;
+        }
+
+
         function quicksort(items){
             var lt = [];
             var gt = [];
@@ -76,24 +108,28 @@ angular.module('network.sortingCtrl', ['ngRoute', 'ngVis'])
             var maxDigits = 1;
             var dataset = [];
 
-            function getCharAt(int,ind){
+            function getCharAt(item,ind){
                 var asString = item + '';
                 var rev = asString.split('').reverse().join('');
                 return rev[ind];
             }
 
+// items = [{x:3, y:524},{x:2,y:5},{x:1, y: 12443}];
+
+
             for(var h = 0; h < items.length; h++){
-                var lengthCheck = items[h].y + '';
-                if(maxDigits < lengthCheck.length){
-                    maxDigits = lengthCheck.length;
-                }
                 dataset.push(items[h].y);
+
+                var lengthCheck = (items[h].y + '').length;
+                if(maxDigits < lengthCheck){
+                    maxDigits = lengthCheck;
+                }
             }
+
             for (var i = 0; i < maxDigits; i++){
-                var modulo = Math.pow(2,i);
                 for(var j = 0; j < dataset.length; j++){
                     var item = dataset[j];
-                    var sort = getCharAt(item,Math.log2(modulo));
+                    var sort = getCharAt(item,i);
 
                     var inBuckets = false;
                     for(var k = 0; k < buckets.length; k++){
@@ -159,7 +195,7 @@ angular.module('network.sortingCtrl', ['ngRoute', 'ngVis'])
             items: items
         };
         $scope.determined = {
-            items: reorganize(radixSort(angular.copy(items)))
+            items: reorganize(quicksort2(angular.copy(items)))
         };
     };
 
