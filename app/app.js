@@ -6,10 +6,13 @@ angular.module('network', [
   'ngRoute',
   'network.NetworkGeneratorSvs',
   'network.HelperService',
+  'network.shapeFinderCtrl',
   'network.networkCtrl',
   'network.largestSumCtrl',
   'network.sortingCtrl',
+  'network.hidatoBoardCtrl',
   'network.treeCtrl',
+  'network.sensorFieldCtrl',
   'network.version'
 ]).
 config(['$routeProvider', function($routeProvider) {
