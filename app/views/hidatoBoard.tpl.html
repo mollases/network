@@ -1,0 +1,19 @@
+<div class="row">
+<div class="col-md-offset-4 col-md-4">
+<table class="table table-borded">
+    <tr ng-repeat="row in cells">
+        <td ng-repeat="cell in row track by $index" ng-class="{red : cell.set}" >{{cell.cell}}</td>
+    </tr>
+</table>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-offset-4 col-md-4">
+<table class="table table-borded">
+    <tr ng-repeat="row in solved">
+        <td ng-repeat="cell in row track by $index" ng-class="{red : cell.set}" >{{cell.cell}}</td>
+    </tr>
+</table>
+</div>
+</div>
